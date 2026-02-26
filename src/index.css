@@ -11,6 +11,19 @@
     scroll-behavior: smooth;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
   body {
     @apply antialiased font-sans;
     color: var(--secondary-800);
@@ -29,6 +42,16 @@
     z-index: -1;
   }
 
+  /* Subtle noise overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
   :focus-visible {
     outline: 2px solid var(--primary-500);
     outline-offset: 2px;
@@ -39,5 +62,23 @@
   }
   a:hover {
     color: var(--primary-700);
+  }
+}
+
+@layer utilities {
+  /* GPU-accelerated transitions */
+  .gpu-transform {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
+/* Theme transition for smooth color interpolation */
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
   }
 }

@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
+import { spring } from '../../lib/animation'
 
 interface SectionProps {
   id: string
@@ -10,18 +12,20 @@ interface SectionProps {
 }
 
 export function Section({ id, title, subtitle, children, className = '' }: SectionProps) {
+  const reduced = useReducedMotion()
+
   return (
     <section
       id={id}
-      className={`py-12 md:py-16 px-4 md:px-8 max-w-6xl mx-auto ${className}`}
+      className={`py-12 md:py-16 px-4 md:px-8 max-w-6xl mx-auto relative z-[1] ${className}`}
     >
       {(title || subtitle) && (
         <motion.header
           className="mb-8 md:mb-10"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduced ? undefined : { opacity: 0, y: 16 }}
+          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-30px' }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
+          transition={{ ...spring.smooth, duration: 0.4 }}
         >
           {title && (
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-secondary-900">

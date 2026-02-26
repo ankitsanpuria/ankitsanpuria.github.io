@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ThemeSwitcher } from '../ui/ThemeSwitcher'
+import { useActiveSection } from '../../hooks/useActiveSection'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 const navLinks = [
   { href: '#about', label: 'About' },
@@ -11,39 +13,60 @@ const navLinks = [
   { href: '#contact', label: 'Contact' },
 ]
 
+function getSectionId(href: string) {
+  return href.replace('#', '') || 'hero'
+}
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const activeId = useActiveSection()
+  const reduced = useReducedMotion()
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-secondary-200/80 bg-surface/80 backdrop-blur-md">
+    <motion.header
+      className="sticky top-0 z-40 w-full border-b border-secondary-200/60 bg-surface/70 backdrop-blur-xl supports-[backdrop-filter]:bg-surface/60"
+      initial={reduced ? false : { y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+    >
       <nav className="max-w-6xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
         <a
           href="#hero"
-          className="text-lg font-bold bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent hover:from-primary-700 hover:to-primary-600 transition-all"
+          className="text-lg font-bold bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent hover:from-primary-700 hover:to-primary-600 transition-all duration-300"
         >
           AS
         </a>
 
         <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="text-sm font-medium text-secondary-600 hover:text-primary-600 transition-colors"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = getSectionId(link.href) === activeId
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className="group relative inline-block text-sm font-medium text-secondary-600 hover:text-primary-600 transition-colors duration-200 py-2"
+                >
+                  <span className={isActive ? 'text-primary-600' : ''}>{link.label}</span>
+                  <span
+                    className={`absolute bottom-0 left-0 h-0.5 bg-primary-500 rounded-full transition-all duration-300 ease-out origin-left ${
+                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}
+                  />
+                </a>
+              </li>
+            )
+          })}
         </ul>
 
         <div className="flex items-center gap-2">
           <ThemeSwitcher />
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-surface-inset"
+          <motion.button
+            className="md:hidden p-2 rounded-lg hover:bg-surface-inset transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label="Toggle menu"
+            whileHover={reduced ? undefined : { scale: 1.05 }}
+            whileTap={reduced ? undefined : { scale: 0.95 }}
           >
             {mobileMenuOpen ? (
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,7 +77,7 @@ export function Header() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
-          </button>
+          </motion.button>
         </div>
       </nav>
 
@@ -64,24 +87,32 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-secondary-200"
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="md:hidden border-t border-secondary-200/80 overflow-hidden"
           >
             <ul className="py-4 px-4 flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <li key={link.href}>
+              {navLinks.map((link, i) => (
+                <motion.li
+                  key={link.href}
+                  initial={reduced ? false : { opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.03 }}
+                >
                   <a
                     href={link.href}
-                    className="block py-2 text-secondary-600 hover:text-secondary-900"
+                    className={`block py-2 text-secondary-600 hover:text-primary-600 transition-colors ${
+                      getSectionId(link.href) === activeId ? 'text-primary-600 font-medium' : ''
+                    }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {link.label}
                   </a>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   )
 }

@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect } from 'react'
 import type { ReactNode } from 'react'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
+import { spring } from '../../lib/animation'
 
 interface ModalProps {
   isOpen: boolean
@@ -10,6 +12,8 @@ interface ModalProps {
 }
 
 export function Modal({ isOpen, onClose, title, children }: ModalProps) {
+  const reduced = useReducedMotion()
+
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
     if (isOpen) {
@@ -32,30 +36,33 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
           aria-labelledby={title ? 'modal-title' : undefined}
         >
           <motion.div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/50 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: reduced ? 0.01 : 0.2 }}
             onClick={onClose}
             aria-hidden="true"
           />
           <motion.div
             className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl bg-surface-overlay border border-secondary-200 shadow-2xl"
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={reduced ? false : { opacity: 0, scale: 0.94, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            exit={reduced ? undefined : { opacity: 0, scale: 0.94, y: 20 }}
+            transition={reduced ? { duration: 0 } : spring.smooth}
             onClick={(e) => e.stopPropagation()}
           >
             {title && (
-              <div className="sticky top-0 z-10 flex items-center justify-between border-b border-secondary-200 bg-surface-overlay px-6 py-4">
+              <div className="sticky top-0 z-10 flex items-center justify-between border-b border-secondary-200 bg-surface-overlay px-6 py-4 backdrop-blur-sm">
                 <h2 id="modal-title" className="text-xl font-semibold">
                   {title}
                 </h2>
-                <button
+                <motion.button
                   onClick={onClose}
                   className="p-2 rounded-lg hover:bg-surface-inset transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
                   aria-label="Close modal"
+                  whileHover={reduced ? undefined : { scale: 1.05 }}
+                  whileTap={reduced ? undefined : { scale: 0.95 }}
                 >
                   <svg
                     className="w-5 h-5"
@@ -70,7 +77,7 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
                       d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
-                </button>
+                </motion.button>
               </div>
             )}
             <div className="p-6">{children}</div>

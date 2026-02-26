@@ -1,7 +1,10 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import { Section } from '../layout/Section'
 import { Button } from '../ui/Button'
 import { contactLinks } from '../../data/content'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
+import { spring } from '../../lib/animation'
 
 function Icon({ name }: { name: string }) {
   if (name === 'linkedin')
@@ -24,50 +27,72 @@ function Icon({ name }: { name: string }) {
 }
 
 export function Contact() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(containerRef, { once: true, margin: '-30px' })
+  const reduced = useReducedMotion()
+
   return (
     <Section id="contact" title="Contact" subtitle="Let's connect.">
-      <motion.div
-        className="flex flex-wrap gap-4"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-      >
-        {contactLinks.map((link, i) => (
-          <motion.a
-            key={link.name}
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.05 }}
-            whileHover={{ scale: 1.03, y: -2 }}
-            className="flex items-center gap-2 px-5 py-3 rounded-xl border border-secondary-200 bg-surface-raised hover:border-primary-300 hover:bg-primary-50/50 hover:text-primary-700 transition-all duration-200"
-          >
-            <Icon name={link.icon} />
-            <span>{link.name}</span>
-          </motion.a>
-        ))}
-      </motion.div>
-
-      <motion.div
-        className="mt-6"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.1 }}
-      >
-        <Button
-          as="a"
-          href="/assets/Resume_Ankit_Sanpuria.pdf"
-          download
-          variant="outline"
-          size="lg"
+      <div ref={containerRef} className="space-y-6">
+        <motion.div
+          className="flex flex-wrap gap-4"
+          initial={reduced ? false : { opacity: 0, y: 20 }}
+          animate={reduced ? undefined : isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ ...spring.smooth, delay: 0 }}
         >
-          Download Resume
-        </Button>
-      </motion.div>
+          {contactLinks.map((link, i) => (
+            <motion.a
+              key={link.name}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={reduced ? false : { opacity: 0, y: 12 }}
+              animate={
+                reduced ? undefined : isInView ? { opacity: 1, y: 0 } : {}
+              }
+              transition={{
+                ...spring.snappy,
+                delay: reduced ? 0 : i * 0.06,
+              }}
+              whileHover={
+                reduced
+                  ? undefined
+                  : {
+                      scale: 1.03,
+                      y: -2,
+                      transition: { duration: 0.2 },
+                    }
+              }
+              whileTap={reduced ? undefined : { scale: 0.98 }}
+              className="flex items-center gap-2 px-5 py-3 rounded-xl border border-secondary-200 bg-surface-raised hover:border-primary-300 hover:bg-primary-50/50 hover:text-primary-700 transition-all duration-200"
+            >
+              <motion.span
+                whileHover={reduced ? undefined : { scale: 1.1 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Icon name={link.icon} />
+              </motion.span>
+              <span>{link.name}</span>
+            </motion.a>
+          ))}
+        </motion.div>
+
+        <motion.div
+          initial={reduced ? false : { opacity: 0, y: 12 }}
+          animate={reduced ? undefined : isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ ...spring.smooth, delay: 0.15 }}
+        >
+          <Button
+            as="a"
+            href="/assets/Resume_Ankit_Sanpuria.pdf"
+            download
+            variant="outline"
+            size="lg"
+          >
+            Download Resume
+          </Button>
+        </motion.div>
+      </div>
     </Section>
   )
 }
