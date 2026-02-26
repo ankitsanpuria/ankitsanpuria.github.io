@@ -23,13 +23,13 @@ type ButtonProps = ButtonAsButton | ButtonAsAnchor
 
 const variants = {
   primary:
-    'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200',
+    'bg-primary-600 text-primary-50 hover:bg-primary-700',
   secondary:
-    'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200 dark:hover:bg-zinc-700',
+    'bg-surface-inset text-secondary-900 hover:bg-secondary-200',
   ghost:
-    'bg-transparent text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800',
+    'bg-transparent text-secondary-700 hover:bg-surface-inset',
   outline:
-    'border-2 border-zinc-900 dark:border-zinc-100 bg-transparent hover:bg-zinc-100 dark:hover:bg-zinc-800',
+    'border-2 border-primary-600 text-primary-600 bg-transparent hover:bg-primary-100',
 }
 
 const sizes = {

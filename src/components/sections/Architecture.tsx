@@ -12,19 +12,19 @@ export function Architecture() {
       title="Architecture Highlights"
       subtitle="Design principles and technical approaches."
     >
-      <div ref={ref as React.RefObject<HTMLDivElement>} className="grid gap-6 md:grid-cols-2">
+      <div ref={ref as React.RefObject<HTMLDivElement>} className="grid gap-5 md:grid-cols-2">
         {architectureHighlights.map((item, i) => (
           <motion.article
             key={item.title}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 p-6"
-            initial={{ opacity: 0, y: 20 }}
+            className="group relative rounded-xl border border-secondary-200 bg-surface-raised/90 p-5 pl-6 border-l-4 border-l-primary-500/70 transition-all duration-300 hover:border-primary-300 hover:shadow-md"
+            initial={{ opacity: 0, y: 16 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.4, delay: i * 0.08 }}
+            transition={{ duration: 0.35, delay: i * 0.06, ease: 'easeOut' }}
           >
-            <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+            <h3 className="text-lg font-semibold text-primary-800">
               {item.title}
             </h3>
-            <p className="mt-3 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            <p className="mt-3 text-secondary-600 leading-relaxed">
               {item.description}
             </p>
           </motion.article>

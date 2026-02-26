@@ -13,7 +13,7 @@ export function LazyImage({ src, alt, className = '', placeholder, ...props }: L
   return (
     <span className={`relative block overflow-hidden ${className}`}>
       {!loaded && placeholder && (
-        <span className="absolute inset-0 flex items-center justify-center bg-zinc-100 dark:bg-zinc-800">
+        <span className="absolute inset-0 flex items-center justify-center bg-surface-inset">
           {placeholder}
         </span>
       )}

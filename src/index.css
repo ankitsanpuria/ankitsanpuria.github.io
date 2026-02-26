@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./theme.css";
 
 @theme {
   --font-sans: "DM Sans", system-ui, sans-serif;
@@ -12,9 +13,31 @@
 
   body {
     @apply antialiased font-sans;
+    color: var(--secondary-800);
+    background: var(--surface);
+    position: relative;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, var(--primary-200) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, var(--tertiary-200) 0%, transparent 50%);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: -1;
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-zinc-500;
+    outline: 2px solid var(--primary-500);
+    outline-offset: 2px;
+  }
+
+  a {
+    color: var(--primary-600);
+  }
+  a:hover {
+    color: var(--primary-700);
   }
 }

@@ -1,32 +1,36 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 
-type Theme = 'light' | 'dark'
+export const THEMES = ['default', 'emerald', 'rose', 'midnight', 'nightfall'] as const
+export type ThemeId = (typeof THEMES)[number]
 
 interface ThemeContextValue {
-  theme: Theme
-  toggleTheme: () => void
+  theme: ThemeId
+  setTheme: (theme: ThemeId) => void
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
+const STORAGE_KEY = 'portfolio_theme'
+
+function getStoredTheme(): ThemeId {
+  if (typeof window === 'undefined') return 'default'
+  const stored = localStorage.getItem(STORAGE_KEY) as ThemeId | null
+  if (stored && THEMES.includes(stored)) return stored
+  return 'default'
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === 'undefined') return 'dark'
-    const stored = localStorage.getItem('theme') as Theme | null
-    if (stored) return stored
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-  })
+  const [theme, setThemeState] = useState<ThemeId>(getStoredTheme)
 
   useEffect(() => {
-    document.documentElement.classList.remove('light', 'dark')
-    document.documentElement.classList.add(theme)
-    localStorage.setItem('theme', theme)
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem(STORAGE_KEY, theme)
   }, [theme])
 
-  const toggleTheme = () => setTheme((t) => (t === 'light' ? 'dark' : 'light'))
+  const setTheme = (t: ThemeId) => setThemeState(t)
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   )

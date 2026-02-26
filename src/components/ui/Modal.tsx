@@ -40,7 +40,7 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
             aria-hidden="true"
           />
           <motion.div
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xl"
+            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl bg-surface-overlay border border-secondary-200 shadow-2xl"
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -48,13 +48,13 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
             onClick={(e) => e.stopPropagation()}
           >
             {title && (
-              <div className="sticky top-0 z-10 flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-6 py-4">
+              <div className="sticky top-0 z-10 flex items-center justify-between border-b border-secondary-200 bg-surface-overlay px-6 py-4">
                 <h2 id="modal-title" className="text-xl font-semibold">
                   {title}
                 </h2>
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className="p-2 rounded-lg hover:bg-surface-inset transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
                   aria-label="Close modal"
                 >
                   <svg

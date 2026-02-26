@@ -16,7 +16,7 @@ export function About() {
           transition={{ duration: 0.5 }}
         >
           {aboutContent.summary.split('\n\n').map((para, i) => (
-            <p key={i} className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
+            <p key={i} className="text-secondary-600 leading-relaxed mb-4">
               {para}
             </p>
           ))}

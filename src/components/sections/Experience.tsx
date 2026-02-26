@@ -13,9 +13,9 @@ export function Experience() {
       subtitle="Professional journey and leadership highlights."
     >
       <div ref={ref as React.RefObject<HTMLDivElement>} className="relative">
-        <div className="absolute left-0 md:left-4 top-0 bottom-0 w-px bg-zinc-200 dark:bg-zinc-800" />
+        <div className="absolute left-0 md:left-4 top-0 bottom-0 w-px bg-gradient-to-b from-primary-400 via-primary-300 to-transparent" />
 
-        <ul className="space-y-12">
+        <ul className="space-y-6">
           {experience.map((exp, i) => (
             <motion.li
               key={exp.id}
@@ -24,18 +24,18 @@ export function Experience() {
               animate={isVisible ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.4, delay: i * 0.1 }}
             >
-              <span className="absolute left-0 md:left-4 w-3 h-3 rounded-full bg-zinc-400 dark:bg-zinc-500 -translate-x-[5px] md:-translate-x-[5px] top-1.5" />
-              <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 p-6">
+              <span className="absolute left-0 md:left-4 w-3 h-3 rounded-full bg-primary-500 ring-4 ring-primary-100 -translate-x-[5px] md:-translate-x-[5px] top-1.5" />
+              <div className="rounded-xl border border-secondary-200 bg-surface-raised/90 p-5 transition-all duration-300 hover:border-primary-200 hover:shadow-md">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-lg font-semibold">{exp.role}</h3>
-                  <span className="text-sm text-zinc-500 dark:text-zinc-400">{exp.period}</span>
+                  <h3 className="text-lg font-semibold text-primary-800">{exp.role}</h3>
+                  <span className="text-sm text-secondary-500">{exp.period}</span>
                 </div>
-                <p className="mt-1 text-zinc-600 dark:text-zinc-400">{exp.company}</p>
-                <p className="mt-3 text-zinc-600 dark:text-zinc-400">{exp.description}</p>
+                <p className="mt-1 text-secondary-600">{exp.company}</p>
+                <p className="mt-3 text-secondary-600">{exp.description}</p>
                 <ul className="mt-4 space-y-2">
                   {exp.achievements.map((a, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-                      <span className="text-zinc-400 dark:text-zinc-500 mt-0.5">•</span>
+                    <li key={j} className="flex items-start gap-2 text-sm text-secondary-600">
+                      <span className="text-secondary-500 mt-0.5">•</span>
                       {a}
                     </li>
                   ))}

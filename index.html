@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="default">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,11 +12,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <title>Ankit Sanpuria | Senior Full Stack Engineer & Technical Lead</title>
+    <script>
+      (function () {
+        const stored = localStorage.getItem('portfolio_theme')
+        const themes = ['default', 'emerald', 'rose', 'midnight', 'nightfall']
+        if (stored && themes.includes(stored)) {
+          document.documentElement.setAttribute('data-theme', stored)
+        }
+      })()
+    </script>
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"Person","name":"Ankit Sanpuria","jobTitle":"Senior Full Stack Engineer & Technical Lead","description":"8+ years architecting and scaling high-performance web and mobile platforms. Microservices, distributed systems, zero-downtime releases.","email":"ankitsanpuria@hotmail.com","url":"https://linkedin.com/in/ankitsanpuria"}
     </script>
   </head>
-  <body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

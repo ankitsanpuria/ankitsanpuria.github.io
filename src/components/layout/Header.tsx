@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ThemeToggle } from '../ui/ThemeToggle'
+import { ThemeSwitcher } from '../ui/ThemeSwitcher'
 
 const navLinks = [
   { href: '#about', label: 'About' },
@@ -15,11 +15,11 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-secondary-200/80 bg-surface/80 backdrop-blur-md">
       <nav className="max-w-6xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
         <a
           href="#hero"
-          className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors"
+          className="text-lg font-bold bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent hover:from-primary-700 hover:to-primary-600 transition-all"
         >
           AS
         </a>
@@ -29,7 +29,7 @@ export function Header() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                className="text-sm font-medium text-secondary-600 hover:text-primary-600 transition-colors"
               >
                 {link.label}
               </a>
@@ -38,9 +38,9 @@ export function Header() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <ThemeToggle />
+          <ThemeSwitcher />
           <button
-            className="md:hidden p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            className="md:hidden p-2 rounded-lg hover:bg-surface-inset"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label="Toggle menu"
@@ -64,14 +64,14 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-zinc-200 dark:border-zinc-800"
+            className="md:hidden border-t border-secondary-200"
           >
             <ul className="py-4 px-4 flex flex-col gap-2">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="block py-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+                    className="block py-2 text-secondary-600 hover:text-secondary-900"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {link.label}

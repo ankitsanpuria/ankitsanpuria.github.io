@@ -12,11 +12,12 @@ export function Card({ children, className = '', onClick, as = 'div' }: CardProp
   const Comp = motion[as]
   return (
     <Comp
-      className={`rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-6 shadow-sm hover:shadow-md transition-shadow ${onClick ? 'cursor-pointer' : ''} ${className}`}
+      className={`group relative overflow-hidden rounded-xl border border-secondary-200 bg-surface-raised p-6 shadow-sm transition-all duration-300 hover:border-primary-300 hover:shadow-lg hover:shadow-primary-500/10 ${onClick ? 'cursor-pointer' : ''} ${className}`}
       onClick={onClick}
-      whileHover={onClick ? { y: -4 } : undefined}
-      transition={{ duration: 0.2 }}
+      whileHover={onClick ? { y: -6, transition: { duration: 0.25 } } : undefined}
+      whileTap={onClick ? { scale: 0.98 } : undefined}
     >
+      <span className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary-500 to-tertiary-500 scale-x-0 transition-transform duration-300 group-hover:scale-x-100 origin-left" />
       {children}
     </Comp>
   )

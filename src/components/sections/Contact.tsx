@@ -32,22 +32,27 @@ export function Contact() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
       >
-        {contactLinks.map((link) => (
-          <a
+        {contactLinks.map((link, i) => (
+          <motion.a
             key={link.name}
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.05 }}
+            whileHover={{ scale: 1.03, y: -2 }}
+            className="flex items-center gap-2 px-5 py-3 rounded-xl border border-secondary-200 bg-surface-raised hover:border-primary-300 hover:bg-primary-50/50 hover:text-primary-700 transition-all duration-200"
           >
             <Icon name={link.icon} />
             <span>{link.name}</span>
-          </a>
+          </motion.a>
         ))}
       </motion.div>
 
       <motion.div
-        className="mt-8"
+        className="mt-6"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -55,7 +60,7 @@ export function Contact() {
       >
         <Button
           as="a"
-          href="/Ankit_Sanpuria_Full_work2026.pdf"
+          href="/assets/Resume_Ankit_Sanpuria.pdf"
           download
           variant="outline"
           size="lg"
