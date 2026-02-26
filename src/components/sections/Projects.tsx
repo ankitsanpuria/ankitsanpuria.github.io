@@ -5,6 +5,7 @@ import { Card } from '../ui/Card'
 import { Modal } from '../ui/Modal'
 import { projects } from '../../data/content'
 import type { Project } from '../../types'
+import { LazyImage } from '../ui/LazyImage'
 
 const categories = ['All', ...new Set(projects.map((p) => p.category))]
 
@@ -46,9 +47,11 @@ export function Projects() {
           >
             <Card onClick={() => setSelected(project)} as="article">
               <div className="h-32 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center mb-4">
-                <span className="text-4xl font-bold text-zinc-300 dark:text-zinc-600">
-                  {project.title.charAt(0)}
-                </span>
+                  {project.image ? <LazyImage src={project.image} alt={project.title} className="w-full h-full object-contain" /> : (
+                    <span className="text-4xl font-bold text-zinc-300 dark:text-zinc-600">
+                      {project.title.charAt(0)}
+                    </span>
+                  )}
               </div>
               <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
                 {project.category}
@@ -75,7 +78,7 @@ export function Projects() {
             <p className="text-zinc-600 dark:text-zinc-400">{selected.tagline}</p>
 
             <div className="h-48 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
-              <span className="text-sm text-zinc-400">Screenshot placeholder</span>
+              <img src={selected.image} alt={selected.title} className="w-full h-full object-contain" />
             </div>
 
             <div>

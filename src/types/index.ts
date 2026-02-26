@@ -8,6 +8,7 @@ export interface Project {
   techStack: string[]
   impact: string[]
   image?: string
+  url?: string
 }
 
 export interface Experience {

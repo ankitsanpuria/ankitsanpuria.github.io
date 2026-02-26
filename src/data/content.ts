@@ -3,125 +3,169 @@ import type { Project, Experience, SkillGroup } from '../types'
 export const siteConfig = {
   name: 'Ankit Sanpuria',
   title: 'Senior Full Stack Engineer & Technical Lead',
-  tagline: '8+ years building scalable SaaS platforms, microservices, and cloud-native applications',
+  tagline: '8+ years architecting and scaling high-performance web and mobile platforms. Microservices, distributed systems, zero-downtime releases.',
 }
 
 export const projects: Project[] = [
   {
-    id: 'malhar-jukebox',
-    title: 'Malhar Jukebox',
-    tagline: 'Multi-tenant music scheduling platform',
-    category: 'SaaS',
-    problem: 'Radio stations needed a unified platform to manage music scheduling across multiple channels with compliance, licensing, and automation.',
-    architecture: 'Multi-tenant SaaS with tenant isolation at the data layer. Event-driven microservices for scheduling workflows. Redis for real-time state, PostgreSQL for persistence. Background workers for playlist generation and compliance validation.',
-    techStack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Redis', 'AWS', 'Docker'],
-    impact: ['Reduced scheduling time by 60%', 'Served 50+ radio stations', '99.9% uptime SLA'],
-  },
-  {
-    id: 'ymca-platform',
-    title: 'White-label YMCA Platform',
-    tagline: 'Scalable fitness and community management',
+    id: 'nonprofit-mobile',
+    title: 'Non-Profit Mobile App',
+    tagline: 'White-label React Native platform serving 100+ organizations',
     category: 'Enterprise',
-    problem: 'YMCA branches needed a white-label solution for membership, class booking, and facility management with per-location customization.',
-    architecture: 'White-label architecture with shared core and tenant-specific branding/config. API-first design. Multi-region deployment for latency. Caching layer for high-traffic read paths.',
-    techStack: ['React', 'Node.js', 'PostgreSQL', 'AWS Lambda', 'CloudFront', 'Terraform'],
-    impact: ['Deployed to 20+ locations', 'Handled 100K+ monthly active users', 'Sub-200ms API p95 latency'],
+    problem: 'Non-profit organizations needed a scalable, white-label mobile app for member engagement, scheduling, check-ins, and operational workflows—with per-client branding and rapid onboarding.',
+    architecture: 'Cross-platform React Native (Expo) with TypeScript, Expo Router, and React Query for scalable navigation and resilient data fetching. White-label architecture with per-client theming, dynamic app icons, and automated onboarding scripts. Zustand for state, shared design system and i18n for multi-region rollout. Progressive initialization and cached assets for reduced perceived load time.',
+    techStack: ['React Native', 'Expo', 'TypeScript', 'Expo Router', 'React Query', 'Zustand'],
+    impact: ['Serving 100+ organizations', 'Significantly reduced new-client setup time', '15+ client deployments with consistent UX'],
   },
   {
-    id: 'saas-admin',
-    title: 'SaaS Admin Systems',
-    tagline: 'Internal tooling and operations platforms',
-    category: 'Internal Tools',
-    problem: 'Operations teams required centralized admin dashboards for user management, billing, analytics, and configuration across multiple products.',
-    architecture: 'Modular admin framework with role-based access. Plugin architecture for product-specific modules. Audit logging and real-time notifications. Serverless functions for background jobs.',
-    techStack: ['React', 'TypeScript', 'GraphQL', 'PostgreSQL', 'AWS', 'Framer Motion'],
-    impact: ['Unified 5 product admin UIs', 'Reduced support tickets by 40%', 'Self-service configuration for 80% of use cases'],
+    id: 'nonprofit-admin',
+    title: 'Non-Profit Admin & Integrations',
+    tagline: 'Platform, API, infra & ops for YMCA ecosystem',
+    category: 'Enterprise',
+    problem: 'YMCA organizations required a unified admin platform with scheduling, notifications, fundraising, check-in APIs, and integrations—while maintaining multi-tenant isolation and enterprise uptime.',
+    architecture: 'Multi-tenant admin systems with SvelteKit, dynamic master-data management, and approval workflows. Timezone-aware scheduling, recurring classes, reservation management. Read replica architecture and indexing optimizations. Kubernetes health checks, HPA, heap tuning for resilience. AWS Pinpoint push notifications with audience segmentation and scheduled delivery.',
+    techStack: ['SvelteKit', 'TypeScript', 'MySQL', 'Capacitor', 'Redis'],
+    impact: ['40%+ DB read latency reduction', '~60% reduction in critical bug backlog', '~99.9% uptime', '250+ production commits', '15+ YMCA organizations supported'],
+  },
+  {
+    id: 'malharmusic',
+    title: 'MalharMusic',
+    tagline: 'Multi-tenant music playback & scheduling platform',
+    category: 'SaaS',
+    problem: 'Outlets and venues needed a multi-tenant platform for music playback, scheduling, playlists, time-based slots, and paid song requests—with role-based portals for admins, outlets, artists, and customers.',
+    architecture: 'PWA-first experience with React (Vite), dynamic manifests, and service workers for offline resilience. Audio streaming with HTTP Range Requests, seeking, and browser caching. Offline-first schedule execution via IndexedDB and Web Workers. Queue-driven bulk media ingestion, resumable Excel imports, AWS S3/CloudFront. Self-hosted Socket.io for push notifications and remote playback control.',
+    techStack: ['Laravel', 'React', 'React Native', 'MySQL', 'Redis', 'IndexedDB', 'Web Workers', 'AWS S3/CloudFront', 'PWA', 'Socket.io', 'TailwindCSS'],
+    impact: ['~65% reduction in buffering incidents', '~70% fewer runtime failures in low-connectivity', '~80% improved data ingestion reliability', 'Secure OTP auth & PhonePe payment integration'],
+  },
+  {
+    id: 'campfire-digital',
+    title: 'Campfire Digital',
+    tagline: 'E-commerce & digital rental platform',
+    image: '/images/campfire-digital.png',
+    url: 'https://campfire.co.in',
+    category: 'E-Commerce',
+    problem: 'A hybrid e-commerce platform was needed for physical book purchases and time-bound e-book rentals, with secure access control, order approvals, and multi-channel notifications.',
+    architecture: 'Laravel backend with dynamic admin panel for master data, order approvals, and automated email workflows. Payment gateway integration with validation and failure handling. Cross-platform React Native mobile apps with feature parity and seamless API integration. Email, SMS, and WhatsApp notification services.',
+    techStack: ['Laravel 11', 'React 18', 'React Native', 'React Query', 'MySQL', 'TailwindCSS'],
+    impact: ['Scalable backend for growing catalogs and order volume', 'Intuitive consumer-facing web interfaces', 'Cross-platform mobile experience'],
+  },
+  {
+    id: 'readingpup',
+    title: 'ReadingPup',
+    tagline: "Children's learning web & mobile platform",
+    category: 'EdTech',
+    problem: 'A subscription-based platform was needed to deliver interactive English-learning experiences for children, with role-based admin, analytics, and engagement workflows.',
+    architecture: 'Role-based admin panel for user management, master data, and operational workflows. REST APIs powering mobile and web clients. React Native mobile apps optimized for performance. Automated email workflows for subscriptions, notifications, and user engagement. Visually driven analytics dashboards for engagement and learning metrics.',
+    techStack: ['Laravel 11', 'React 18', 'React Native', 'JavaScript', 'MySQL'],
+    impact: ['Subscription-based learning delivery', 'Engagement and usage analytics', 'Automated user engagement flows'],
   },
 ]
 
 export const experience: Experience[] = [
   {
     id: '1',
-    company: '[Company Name]',
-    role: 'Technical Lead',
-    period: '2022 – Present',
-    description: 'Leading architecture and delivery of SaaS products.',
-    achievements: ['Drove migration to microservices architecture', 'Mentored 5 engineers', 'Reduced deployment time by 70%'],
+    company: 'DAXKO',
+    role: 'Senior Engineer',
+    period: 'April 2024 – Present',
+    description: 'End-to-end engineering and architecture for a white-label, multi-tenant mobile + backend platform serving 100+ organizations.',
+    achievements: [
+      'Led mobile platform delivery (React Native + Expo + TypeScript) with dev builds, Expo Router, and React Query patterns',
+      'Architected white-label & onboarding automation—per-client theming, dynamic app icons, significantly reduced new-client setup time',
+      'DB read latency improved 40%+ via query optimizations and read replica architecture',
+      'Remediated SQL injection vectors, removed sensitive logging, resolved high-severity npm vulnerabilities',
+      'Delivered Schedule, Notifications, Event Logs, Fundraising, Check-In APIs and external scheduling integrations',
+      '~60% reduction in critical bug backlog through monitoring and Instana tracing',
+      '250+ production commits; established Zustand + React Query, testing, and linting patterns',
+    ],
   },
   {
     id: '2',
-    company: '[Company Name]',
-    role: 'Senior Full Stack Engineer',
-    period: '2019 – 2022',
-    description: 'Built and scaled customer-facing and internal platforms.',
-    achievements: ['Shipped 3 major product launches', 'Implemented CI/CD pipelines', 'Introduced comprehensive observability'],
+    company: 'Kalyani Navyug Media Pvt. Ltd.',
+    role: 'Senior Software Developer',
+    period: 'July 2021 – March 2024',
+    description: 'End-to-end full-stack delivery across 4+ concurrent web and mobile products—multi-tenant platforms, high-traffic workflows, 100k+ monthly active users.',
+    achievements: [
+      '~60% reduction in manual operational effort via dynamic admin platforms and automated communications',
+      '~40% improvement in mobile engagement through React Native feature parity and performance optimizations',
+      'Secure payment pipelines with gateway integrations, webhook verification, atomic transactions—zero reconciliation issues',
+      '~70% fewer runtime failures in low-connectivity via offline-first IndexedDB and background workers',
+      '~65% reduction in buffering incidents with optimized media streaming and HTTP Range Requests',
+      '~80% improvement in data ingestion reliability with async, queue-driven bulk import pipelines',
+      '~50% reduction in production incidents through caching, tuning, and architectural refinements',
+    ],
   },
   {
     id: '3',
-    company: '[Company Name]',
-    role: 'Full Stack Engineer',
-    period: '2016 – 2019',
-    description: 'Developed web applications and APIs.',
-    achievements: ['Contributed to core product features', 'Optimized database queries', 'Improved test coverage to 80%+'],
+    company: 'Pinnacleworks Infotech Pvt. Ltd.',
+    role: 'Software Developer',
+    period: 'Jan 2019 – June 2021',
+    description: 'End-to-end full-stack delivery of large-scale education and CRM platforms—architecture, development, and production readiness.',
+    achievements: [
+      'Designed secure, role-based access systems for academic, administrative, and operational departments',
+      'Built and optimized backend services with Laravel and JavaScript—data consistency, performance, extensibility',
+      'Complex workflow automation across admissions, finance, inventory, and academic operations',
+      'Third-party integrations and payment gateways with reliable transaction handling and real-time sync',
+      'Analytics and reporting for data-driven leadership decisions',
+    ],
   },
 ]
 
 export const skills: SkillGroup[] = [
   {
     name: 'Frontend',
-    skills: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
+    skills: ['React', 'Next.js', 'TypeScript', 'React Native', 'Redux Toolkit', 'Zustand', 'React Query', 'Tailwind CSS', 'SSR', 'SPA Architecture'],
   },
   {
     name: 'Backend',
-    skills: ['Node.js', 'Python', 'REST APIs', 'GraphQL', 'gRPC'],
+    skills: ['Node.js', 'Express', 'NestJS', 'Laravel', 'RESTful APIs', 'Microservices', 'Event-driven Architecture', 'API Versioning'],
   },
   {
     name: 'Cloud & DevOps',
-    skills: ['AWS', 'Docker', 'Kubernetes', 'Terraform', 'CI/CD'],
+    skills: ['AWS (Lambda, ECS, S3, RDS)', 'Serverless', 'CI/CD Pipelines', 'GitHub Actions', 'Environment Management', 'Production Deployments'],
   },
   {
-    name: 'Databases',
-    skills: ['PostgreSQL', 'Redis', 'MongoDB', 'Elasticsearch'],
+    name: 'Databases & Caching',
+    skills: ['PostgreSQL', 'MongoDB', 'MySQL', 'Redis', 'Query Optimization'],
   },
   {
-    name: 'AI & Tooling',
-    skills: ['AI-assisted workflows', 'Git', 'Figma', 'Linear'],
+    name: 'AI & Engineering',
+    skills: ['GitHub Copilot', 'Cursor IDE', 'LLM-assisted Development', 'Prompt Engineering', 'Technical Leadership', 'System Design', 'Git', 'Jest', 'Sentry', 'Instana'],
   },
 ]
 
 export const aboutContent = {
-  summary: `Senior Full Stack Engineer and Technical Lead with 8+ years of experience architecting and delivering scalable SaaS platforms. I specialize in multi-tenant systems, microservices design, and cloud-native applications.
+  summary: `Senior Full Stack Engineer and Technical Team Lead with 8+ years of experience architecting and scaling high-performance web and mobile platforms using modern JavaScript stacks. I specialize in microservices, distributed systems, and cloud-native architectures—with a proven record of delivering zero-downtime production releases.
 
-My work spans the full stack—from building performant React applications to designing resilient backend services. I've led migrations to microservices, established observability practices, and mentored engineering teams.
+I'm recognized for technical ownership, system design, CI/CD automation, and observability-driven engineering while mentoring high-impact teams. My work spans white-label multi-tenant platforms, event-driven backends, React Native apps, and performance optimization at scale.
 
-I'm passionate about clean architecture, developer experience, and AI-assisted workflows that accelerate delivery without compromising quality.`,
+From reducing DB read latency by 40%+ to cutting critical bug backlogs by 60%, I focus on measurable outcomes. I'm passionate about clean architecture, developer experience, and AI-assisted workflows that accelerate delivery without compromising quality.`,
 }
 
 export const architectureHighlights = [
   {
     title: 'Multi-tenant SaaS Architecture',
-    description: 'Designing tenant isolation at data and application layers. Shared infrastructure with logical separation. Per-tenant configuration, branding, and feature flags.',
+    description: 'White-label and tenant isolation at data and application layers. Per-client theming, dynamic app icons, automated onboarding. Shared infrastructure with logical separation for 100+ organizations.',
   },
   {
-    title: 'Microservices Design',
-    description: 'Domain-driven service boundaries. Event-driven communication. API contracts and versioning. Graceful degradation and circuit breakers.',
+    title: 'Microservices & Event-driven Design',
+    description: 'Domain-driven service boundaries. Event-driven communication. RESTful APIs with versioning. Queue-driven pipelines for bulk imports, media ingestion, and background jobs.',
   },
   {
     title: 'Performance Optimization',
-    description: 'Caching strategies (Redis, CDN). Query optimization and indexing. Lazy loading and code splitting. Sub-second API response times.',
+    description: 'Read replica architecture, indexing, prepared statements. Caching (Redis, CDN). Offline-first patterns with IndexedDB and Web Workers. 40%+ DB latency reduction, ~65% fewer buffering incidents.',
   },
   {
-    title: 'Cloud Deployment Patterns',
-    description: 'Infrastructure as Code (Terraform). Container orchestration (Docker, Kubernetes). Multi-region and failover. Blue-green and canary deployments.',
+    title: 'Cloud & Infrastructure',
+    description: 'AWS (Lambda, ECS, S3, RDS). Kubernetes health checks, HPA, heap tuning. CI/CD with GitHub Actions. Serverless and containerized deployments. ~99.9% uptime targets.',
   },
   {
-    title: 'Observability',
-    description: 'Structured logging and tracing. Metrics and dashboards. Alerting and on-call runbooks. Incident post-mortems and blameless culture.',
+    title: 'Observability & Reliability',
+    description: 'Instana tracing, Sentry monitoring. Systematic bug triage—60% reduction in critical backlog. Autoscaling and liveness probes. Zero-downtime release practices.',
   },
 ]
 
 export const contactLinks = [
   { name: 'LinkedIn', href: 'https://linkedin.com/in/ankitsanpuria', icon: 'linkedin' },
   { name: 'GitHub', href: 'https://github.com/ankitsanpuria', icon: 'github' },
-  { name: 'Email', href: 'mailto:hello@example.com', icon: 'email' },
+  { name: 'Email', href: 'mailto:ankitsanpuria@hotmail.com', icon: 'email' },
 ]

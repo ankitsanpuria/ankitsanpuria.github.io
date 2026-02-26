@@ -55,7 +55,7 @@ export function Contact() {
       >
         <Button
           as="a"
-          href="/resume.pdf"
+          href="/Ankit_Sanpuria_Full_work2026.pdf"
           download
           variant="outline"
           size="lg"
