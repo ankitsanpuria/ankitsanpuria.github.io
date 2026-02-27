@@ -51,7 +51,7 @@ export function Projects() {
             transition={{ duration: 0.35, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
           >
             <Card onClick={() => setSelected(project)} as="article">
-              <div className="h-28 rounded-lg bg-gradient-to-br from-primary-100/50 to-tertiary-100/50 border border-primary-200/30 flex items-center justify-center mb-4 overflow-hidden">
+              <div className="h-28 rounded-lg bg-linear-to-br from-primary-100/50 to-tertiary-100/50 border border-primary-200/30 flex items-center justify-center mb-4 overflow-hidden">
                 {project.image ? (
                   <div className="w-full h-full flex items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110">
                     <LazyImage

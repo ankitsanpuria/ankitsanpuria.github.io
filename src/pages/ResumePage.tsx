@@ -201,7 +201,7 @@ interface ResumePageProps {
 export function ResumePage({ onExplore }: ResumePageProps) {
   const reduced = useReducedMotion()
 
-  const handlePrint = () => window.print()
+  // const handlePrint = () => window.print()
 
   return (
     <motion.div
@@ -285,7 +285,7 @@ export function ResumePage({ onExplore }: ResumePageProps) {
 
             <div className="flex flex-col gap-2 flex-shrink-0 print:hidden">
               <motion.button
-                onClick={handlePrint}
+                onClick={() => window.open('/assets/Resume_Ankit_Sanpuria.pdf', '_blank')}
                 whileHover={reduced ? undefined : { scale: 1.02 }}
                 whileTap={reduced ? undefined : { scale: 0.97 }}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-600 text-white text-sm font-semibold shadow-lg shadow-primary-500/25 hover:bg-primary-700 transition-colors duration-200 cursor-pointer"
@@ -447,7 +447,7 @@ export function ResumePage({ onExplore }: ResumePageProps) {
                     </motion.a>
                   ))}
                   <motion.button
-                    onClick={handlePrint}
+                    onClick={() => window.open('/assets/Resume_Ankit_Sanpuria.pdf', '_blank')}
                     whileHover={reduced ? undefined : { scale: 1.03 }}
                     whileTap={reduced ? undefined : { scale: 0.97 }}
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-600 text-white text-sm font-semibold shadow-lg shadow-primary-500/25 hover:bg-primary-700 transition-colors duration-200 cursor-pointer"
