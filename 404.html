@@ -9,6 +9,8 @@
       (function () {
         var l = window.location
         var path = l.pathname
+        // Don't redirect static assets (e.g. /assets/Resume.pdf) — let 404 show
+        if (/\.(pdf|png|jpg|jpeg|gif|svg|ico|css|js|webp|woff2?)$/i.test(path)) return
         // Only redirect non-root paths (e.g. /explore)
         if (path !== '/' && path !== '/index.html') {
           // Encode the path as a query param so GitHub Pages serves index.html
