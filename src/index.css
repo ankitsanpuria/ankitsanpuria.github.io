@@ -73,6 +73,80 @@
   }
 }
 
+/* ─── Print styles ─────────────────────────────────────────────────── */
+@media print {
+  @page {
+    size: A4;
+    margin: 16mm 14mm;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background: white !important;
+    color: #1a1a2e !important;
+    font-size: 11px;
+  }
+
+  body::before,
+  body::after {
+    display: none !important;
+  }
+
+  /* Hide interactive / nav elements */
+  header,
+  nav,
+  footer,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Remove sticky positioning */
+  [class*="sticky"] {
+    position: static !important;
+  }
+
+  /* Flatten backgrounds */
+  [class*="bg-surface-raised"],
+  [class*="bg-surface-inset"] {
+    background: white !important;
+  }
+
+  /* Ensure cards don't split across pages */
+  [class*="print:break-inside-avoid"] {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Remove shadows */
+  [class*="shadow"] {
+    box-shadow: none !important;
+  }
+
+  /* Simplify gradients on text for print legibility */
+  [class*="bg-clip-text"] {
+    -webkit-text-fill-color: #1e40af !important;
+    background: none !important;
+  }
+
+  /* Ensure links show href in print */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9px;
+    color: #6b7280;
+  }
+
+  /* Override Framer Motion inline transforms */
+  [style*="transform"],
+  [style*="opacity"] {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
 /* Theme transition for smooth color interpolation */
 body {
   transition: background-color 0.4s ease, color 0.4s ease;
