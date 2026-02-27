@@ -36,7 +36,7 @@ export function ExperienceTimeline({ delay = 0.43 }: ExperienceTimelineProps) {
       {experience.map((exp, i) => {
         const isExpanded = expandedId === exp.id
         const isLast = i === experience.length - 1
-        const dotColor = SENIORITY_COLOR[exp.seniority] ?? 'oklch(0.68 0.18 250)'
+        const dotColor = SENIORITY_COLOR[exp.seniority ?? ''] ?? 'oklch(0.68 0.18 250)'
 
         return (
           <div key={exp.id} className="flex gap-3">
@@ -87,7 +87,7 @@ export function ExperienceTimeline({ delay = 0.43 }: ExperienceTimelineProps) {
                 {/* Metric pills */}
                 {!isExpanded && (
                   <div className="flex flex-wrap gap-1 mt-1.5">
-                    {exp.metrics.slice(0, 3).map(m => (
+                    {(exp.metrics ?? []).slice(0, 3).map(m => (
                       <span
                         key={m}
                         className="text-[9px] px-1.5 py-0.5 rounded"
@@ -114,7 +114,7 @@ export function ExperienceTimeline({ delay = 0.43 }: ExperienceTimelineProps) {
                   >
                     {/* Arch tags */}
                     <div className="flex flex-wrap gap-1 mt-2 mb-2.5">
-                      {exp.architectureTags.map(t => (
+                      {(exp.architectureTags ?? []).map(t => (
                         <span
                           key={t}
                           className="text-[10px] font-medium px-2 py-0.5 rounded-full"

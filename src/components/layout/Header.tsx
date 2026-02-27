@@ -43,7 +43,7 @@ export function Header({ route = 'resume', onNavigate }: HeaderProps) {
         {/* Logo — always navigates home (resume) */}
         <button
           onClick={() => onNavigate?.('resume')}
-          className="text-lg font-bold bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent hover:from-primary-700 hover:to-primary-600 transition-all duration-300 cursor-pointer"
+          className="text-lg font-bold bg-linear-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent hover:from-primary-700 hover:to-primary-600 transition-all duration-300 cursor-pointer"
           aria-label="Go to resume homepage"
         >
           AS
