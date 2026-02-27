@@ -294,7 +294,7 @@ export function ResumePage({ onExplore }: ResumePageProps) {
                 Download PDF
               </motion.button>
               <a
-                href="/Resume_Ankit_Sanpuria.pdf"
+                href="/assets/Resume_Ankit_Sanpuria.pdf"
                 download
                 className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-surface-raised border border-secondary-200 text-secondary-700 text-sm font-medium hover:border-primary-300 hover:text-primary-600 transition-all duration-200"
               >

@@ -59,7 +59,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <SEO />
-      <Header route={route} onNavigate={goTo} />
+      {route === 'resume' && <Header route={route} onNavigate={goTo} />}
 
       <AnimatePresence mode="wait">
         {route === 'resume' ? (
@@ -71,7 +71,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <Footer route={route} onExplore={() => goTo('explore')} />
+      {route === 'resume' && <Footer route={route} onExplore={() => goTo('explore')} />}
     </ThemeProvider>
   )
 }

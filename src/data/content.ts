@@ -55,12 +55,33 @@ export const projects: Project[] = [
     id: 'readingpup',
     title: 'ReadingPup',
     tagline: "Children's learning web & mobile platform",
+    url: '/projects/readingpup/',
     category: 'EdTech',
     image: '/assets/images/readingpup.png',
     problem: 'A subscription-based platform was needed to deliver interactive English-learning experiences for children, with role-based admin, analytics, and engagement workflows.',
     architecture: 'Role-based admin panel for user management, master data, and operational workflows. REST APIs powering mobile and web clients. React Native mobile apps optimized for performance. Automated email workflows for subscriptions, notifications, and user engagement. Visually driven analytics dashboards for engagement and learning metrics.',
     techStack: ['Laravel 11', 'React 18', 'React Native', 'JavaScript', 'MySQL'],
     impact: ['Subscription-based learning delivery', 'Engagement and usage analytics', 'Automated user engagement flows'],
+  },
+  {
+    id: 'admissions-crm',
+    title: 'Student Admissions CRM',
+    tagline: 'End-to-end admissions lifecycle platform for colleges & universities',
+    category: 'Enterprise',
+    problem: 'Colleges and universities needed a centralised CRM to manage the full student admissions lifecycle — from lead capture through enrolment — with tele-calling integrations, payment processing, and analytics across multiple lead sources.',
+    architecture: 'Role-based access system with multi-persona support across admissions, finance, and operations teams. Lead capture, qualification, tracking, and conversion workflows with automated admission steps. API integrations for tele-calling systems and external lead providers to centralise ingestion. Online payment processing integrated into the admission pipeline. Analytics dashboards covering social-media generated leads and funnel performance.',
+    techStack: ['Laravel', 'Vue.js', 'JavaScript', 'jQuery', 'MySQL', 'CSS'],
+    impact: ['Full admissions lifecycle automated end-to-end', 'Tele-calling & external lead-provider API integrations', 'Social media lead analytics dashboards', 'Reduced operational overhead via payment & workflow automation'],
+  },
+  {
+    id: 'university-erp',
+    title: 'University & College ERP',
+    tagline: 'Department-centric management system for complex university operations',
+    category: 'Enterprise',
+    problem: 'A large academic institution required a unified ERP covering finance, inventory, library, HR, placement, and academic operations across multiple departments — with consolidated reporting for leadership.',
+    architecture: 'Department-centric modular architecture built on Laravel with role-based access across academic, administrative, and operational personas. Financial management with income, expenses, and audit-friendly workflows. Multi-store inventory and supply-chain with approval-based procurement. Library systems, purchase-order workflows, and resource management. Assessment, placement, and HR modules. Cross-department analytics providing consolidated academic, financial, and operational insights.',
+    techStack: ['Laravel', 'Vue.js', 'JavaScript', 'jQuery', 'MySQL', 'CSS'],
+    impact: ['Unified ERP across finance, inventory, HR, library & academics', 'Approval-based procurement and audit-ready financial workflows', 'Cross-department analytics for data-driven leadership decisions', 'Significantly reduced manual effort across admissions and operations'],
   },
 ]
 
@@ -69,7 +90,7 @@ export const experience: Experience[] = [
     id: '1',
     company: 'DAXKO',
     role: 'Senior Engineer',
-    period: 'April 2024 – Present',
+    period: 'April 2024 – January 2026',
     seniority: 'senior',
     metrics: ['100+ orgs', '40%+ DB latency ↓', '60% bug backlog ↓', '250+ commits'],
     architectureTags: ['React Native', 'Expo', 'Multi-tenant', 'Zustand', 'K8s'],
@@ -181,3 +202,47 @@ export const contactLinks = [
   { name: 'GitHub', href: 'https://github.com/ankitsanpuria', icon: 'github' },
   { name: 'Email', href: 'mailto:ankitsanpuria@hotmail.com', icon: 'email' },
 ]
+
+/* ─── Explore page–specific data ──────────────────────────────────────────── */
+export const exploreData = {
+  stats: [
+    { value: '8+', label: 'Years of engineering', accent: 'oklch(0.68 0.2 250)' },
+    { value: '100k+', label: 'Monthly active users', accent: 'oklch(0.70 0.2 160)' },
+    { value: '99.9%', label: 'Uptime delivered', accent: 'oklch(0.72 0.18 50)' },
+    { value: '5', label: 'Products shipped end-to-end', accent: 'oklch(0.70 0.18 310)' },
+  ] as const,
+
+  lookingFor: {
+    roles: [
+      'Senior Full Stack Engineer',
+      'Staff Engineer',
+      'Engineering Lead / Architect',
+    ],
+    environments: [
+      'Remote-first or hybrid',
+      'Product-led companies',
+      'High-scale consumer platforms',
+      'Mission-driven teams',
+    ],
+    note: 'Open to senior IC, tech lead, and engineering management roles where I can own architecture, mentor teams, and ship at scale.',
+  },
+
+  principles: [
+    { icon: '◈', text: 'Ship with measurable impact — working code is not enough' },
+    { icon: '◉', text: 'Observability is non-negotiable — trace everything in production' },
+    { icon: '◇', text: 'Developer experience is a product quality metric' },
+    { icon: '⬡', text: 'Architecture decisions outlive their authors — design for the team' },
+    { icon: '◎', text: 'AI-assisted workflows accelerate delivery without cutting corners' },
+  ],
+
+  archChips: [
+    { label: 'Multi-tenant SaaS', icon: '⬡', color: 'oklch(0.68 0.18 250)' },
+    { label: 'Microservices', icon: '◈', color: 'oklch(0.70 0.18 160)' },
+    { label: 'Performance Eng.', icon: '◎', color: 'oklch(0.70 0.18 50)' },
+    { label: 'Cloud & K8s', icon: '⬧', color: 'oklch(0.70 0.18 310)' },
+    { label: 'Observability', icon: '◉', color: 'oklch(0.68 0.16 200)' },
+    { label: 'Zero-downtime CI/CD', icon: '◇', color: 'oklch(0.70 0.16 280)' },
+    { label: 'Event-driven Design', icon: '⬥', color: 'oklch(0.68 0.18 140)' },
+    { label: 'Offline-first Apps', icon: '◌', color: 'oklch(0.70 0.16 30)' },
+  ],
+}

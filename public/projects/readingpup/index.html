@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reading Pup - The Effective English Reader for Children</title>
+    <meta name="keywords" content="Reading Pup, readingpup, children, books, rhymes, stories, reader, English, pictures, phonics">
+    <meta name="description" content="Start your child's English reading journey with Reading Pup - the reading platform that combines powerful language development with child-friendly design.">
+
+    <!-- Icons & Fonts CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo/logo1.png">
+
+    <style>
+        /* ========== Navigation ========== */
+        header .logo_block{display: inline-block;}
+        .logo{width: 55px; margin-left:30px;}
+        .active-link>a:after { width: 100%; }
+        li{list-style: none;}
+        li a:hover{font-family: din_bold; color: var(--primary)}
+        .hamburger-menu { z-index: 100; cursor: pointer; }
+        .bar, .bar:after, .bar:before { width: 35px; height: 4px; border-radius: 10px; }
+        .bar {
+            position: relative;
+            transform: translateY(12px);
+            background: var(--primary);
+            transition: all 0ms 300ms;
+            margin-top: 0px;
+        }
+        .bar.animate { background: rgba(255, 255, 255, 0); }
+        .bar:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 12px;
+            background: var(--primary);
+            transition: bottom 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .bar:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 12px;
+            background: var(--primary);
+            transition: top 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .bar.animate:after {
+            top: 0;
+            transform: rotate(45deg);
+            transition: top 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .bar.animate:before {
+            bottom: 0;
+            transform: rotate(-45deg);
+            transition: bottom 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .m_menu {
+            position: absolute;
+            right: 6%;
+            top: -40px;
+        }
+        .mobile-nav {
+            background: var(--primary);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            text-align: center;
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .9s ease-in-out;
+        }
+        .mobile-nav ul {
+            position: relative;
+            top: 45vh;
+            transform: translateY(-50%);
+            list-style: none;
+        }
+        .mobile-nav ul li { padding: 20px; margin-left: 30px; border-radius: 10px; }
+        .mobile-nav ul li a { font-size: 24px; color: #fff; }
+        .mobile-nav ul li span { margin-right: 20px; }
+        .mobile-nav.show { opacity: 1; pointer-events: all; }
+        @media screen and (max-width: 767px) {
+            .logo{width: 55px; margin-left:20px;}
+            .logo_text{font-size:32px;}
+        }
+        @media screen and (max-width: 500px) { .mobile-nav ul{ top: 32vh; } }
+        @media screen and (max-width: 400px) { .mobile-nav ul{ top: 36vh; } }
+        @media screen and (max-width: 360px) { .mobile-nav ul{ top: 40vh; } }
+
+        /* ========== Owl Carousel ========== */
+        .owl-nav button {
+            position: absolute;
+            top: 50%;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            transition: all 0.3s ease-in-out;
+        }
+        .owl-nav button.owl-prev { left: 0; }
+        .owl-nav button.owl-next { right: 0; }
+        .owl-dots { text-align: center; padding-top: 15px; }
+        .owl-dots button.owl-dot {
+            width: 15px; height: 15px; border-radius: 50%;
+            display: inline-block; background: #ccc; margin: 0 3px;
+        }
+        .owl-dots button.owl-dot.active { background-color: #000; }
+        .owl-dots button.owl-dot:focus { outline: none; }
+        .owl-nav button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.38) !important;
+        }
+        .owl-slider span { font-size: 70px; position: relative; top: -5px; }
+        .owl-nav button:focus { outline: none; }
+        .owl-dots button.owl-dot, .owl-dots button.owl-dot.active { background: var(--white); }
+        .owl-dots button.owl-dot.active { border-radius:15px; width:70px; }
+
+        /* ========== Header Banner ========== */
+        .header-banner .text span { display:block; font-size: 52px; }
+        .header-banner .text > span:nth-child(1) { font-size: 76px; font-family: din_bold; }
+        .header-banner .header-banner-img { margin-top:-80px; float:right; }
+        .header-banner .try-demo button {
+            border:2px solid var(--primary); background-color: transparent;
+            color:var(--primary) !important;
+            font-family: din_medium;
+            width:355px;
+            height:50px
+        }
+        .header-banner .try-demo button:hover {
+            background-color:var(--primary);
+            color:var(--white) !important;
+        }
+        .app-download a { width:170px; height:60px; }
+        .company_features > img {
+            width:100%;
+            z-index: 1;
+            margin-top: 320px;
+        }
+        .company_features .content {
+            z-index: 5;
+            position: absolute;
+            left:0px;
+            right:0px;
+            top:0px;
+        }
+        .companyvideo, .students-content { height:560px; }
+        .company_features .videobg iframe {
+            position:relative;
+            z-index:2;
+            border-radius: 30px;
+            background: #fff;
+            padding: 15px;
+            border: 0px;
+        }
+        .company_features .videobg img {
+            width: 500px;
+            z-index: 1;
+            position: absolute;
+            left:0px;
+            right:0px;
+            margin:auto;
+            bottom: -70px;
+        }
+
+        /* ========== Students section ========== */
+        .welcome-page .title{font-size:52px; text-align:center; color:var(--dark); margin-top:50px}
+        .welcome-page .students-content .text{color:var(--black);}
+        .students-content .owl-carousel .owl-stage{display:flex;}
+        .students-content .owl-carousel .item img{height:auto;}
+        .students-content .owl-carousel .item{height:520px;}
+        .panel-img img{z-index:2;}
+        .teacher-content > img {
+            width:100%;
+            z-index: 2;
+            position: relative;
+            top: -500px;
+        }
+        .teacher-content .content {
+            z-index: 5;
+            position: absolute;
+            left:0px;
+            right:0px;
+            top:-220px;
+        }
+        .home-enquire .title {
+            position: absolute;
+            top: 90px;
+            left: 0px;
+            right: 0px;
+        }
+        .home-enquire .center {
+            position: absolute;
+            top: 0px;
+            bottom:0px;
+            left: 0px;
+            right: 0px;
+        }
+        @media screen and (min-width: 768px){
+            .app-download{display:flex;}
+            .comp-top1 img{position:absolute; top:90px; right:0px;}
+            .comp-top2 img{position:absolute; top:90px; left:0px}
+            .comp-bottom1 img{position:absolute; bottom:90px; right:0px;}
+            .comp-bottom2 img{position:absolute; bottom:90px; left:0px}
+            .header-banner .text span{line-height:76px; margin-bottom:30px}
+            .header-banner .header-banner-text{margin-left: 10%;}
+        }
+        @media screen and (max-width: 767px){
+            .header-banner .header-banner-text{width:100%; text-align:center;}
+            .welcome-page .students-content .carousel .text{text-align:center;}
+            .welcome-page .students-content .carousel .image{text-align:center; height:65vh; display:flex; align-items:center;}
+            .welcome-page .students-content .carousel .image img{width:100%; height:auto; max-height:50vh; margin-bottom: 11vh;}
+            .welcome-page .students-content .carousel { height: calc(100vh - 25vh); }
+            .welcome-page .students-content .col-md-6{display:flex; justify-content:center; }
+            .home-enquire .mousegroup{bottom: 40px; right: 0px; left:0px; margin: auto; width:90%}
+            .app-download img{transform:scale(0.7);}
+            .welcome-page .title{transform:scale(0.8); margin-top:20px; white-space: nowrap;}
+            .comp-top1 img, .comp-top2 img, .comp-bottom1 img, .comp-bottom2 img{width:100%;}
+            .company_features > img{height:1050px; margin-top:250px;}
+            .company_features .videobg iframe{width:360px; height:360px;}
+            .company_features .videobg img{width:400px; height:360px;}
+            .teacher-content > img{ top: -100px; height: 995px;}
+            .teacher-content .content{top:100px;}
+            .teacher-content .m-2.center img{width:90%;}
+            .home-enquire .title{top:5px; font-size:34px;}
+            .home-enquire .big_button{min-width:150px;}
+            .header-banner .try-demo button{width:80%;}
+            .homewidget{padding-top:20px;}
+        }
+        @media screen and (max-width: 500px){
+            .students-content .owl-carousel .item{height:600px;}
+        }
+        @media screen and (max-width: 400px){
+            .teacher-content > img { top: -200px; height: 995px; }
+            .teacher-content .content { top: 30px; }
+            .students-content .owl-carousel .item{height:560px;}
+        }
+        @media screen and (max-width: 360px){
+            .teacher-content > img { top: -250px; height: 995px; }
+            .students-content .owl-carousel .item{height:520px;}
+        }
+    </style>
+</head>
+<body class="font-sans antialiased theme-light">
+<div class="min-h-screen bg-gray-100">
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <header class="valign custom-navbar">
+        <div class="container-fluid p-2" style="position:relative;">
+            <div class="row valign">
+                <div class="col-md-4">
+                    <div class="row valign">
+                        <h1 class="nomargin">
+                            <a href="index.html" class="dark valign logo_block">
+                                <img src="images/logo/logotype_icon.png" class="logo" alt="Reading Pup Logo" />&nbsp;
+                                <span class="mt-1 logo_text">
+                                    <span class="noneinmobile">Reading Pup</span>
+                                </span>
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+
+                <div class="col-md-8 text-right m_nopadding">
+                    <!-- Desktop Nav -->
+                    <nav class="valign right noneinmobile">
+                        <ul class="d-flex">
+                            <li class="">
+                                <a class="valign mynav active_nav" href="index.html">
+                                    <span class="center">
+                                        <i class="center">
+                                            <img src="images/navigation/ehome.png" alt="home">
+                                        </i>
+                                    </span>Home
+                                </a>
+                            </li>
+                            <li class="">
+                                <a class="valign mynav" href="#demo">
+                                    <span class="center">
+                                        <i class="center">
+                                            <img src="images/navigation/demo.png" alt="demo">
+                                        </i>
+                                    </span>Demo
+                                </a>
+                            </li>
+                            <li class="">
+                                <a class="valign mynav" href="#pricing">
+                                    <span class="center">
+                                        <i class="center">
+                                            <img src="images/navigation/pricing.png" alt="pricing" style="width:28px">
+                                        </i>
+                                    </span>Pricing
+                                </a>
+                            </li>
+                            <li class="">
+                                <a class="valign mynav" href="#books">
+                                    <span class="center">
+                                        <i class="center">
+                                            <img src="images/navigation/books.png" alt="books" style="width:28px">
+                                        </i>
+                                    </span>Books
+                                </a>
+                            </li>
+                            <li class="">
+                                <a class="valign mynav" href="#blog">
+                                    <span class="center">
+                                        <i class="center">
+                                            <img src="images/navigation/blog.png" alt="blog">
+                                        </i>
+                                    </span>Blog
+                                </a>
+                            </li>
+                            <li class="">
+                                <a class="valign mynav" href="#contact">
+                                    <span class="center">
+                                        <i class="center">
+                                            <img src="images/navigation/contact.png" alt="contact">
+                                        </i>
+                                    </span>Contact
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- Mobile Hamburger -->
+                    <div class="m_menu noneindesktop">
+                        <div class="hamburger-menu" id="hamburger-btn">
+                            <div class="bar" id="hamburger-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Overlay -->
+        <nav class="noneindesktop mobile-nav w-100" id="mobile-nav">
+            <ul>
+                <li class="">
+                    <a class="valign mynav" href="index.html">
+                        <span class="center">
+                            <i class="center"><img src="images/navigation/ehome.png" alt="home"></i>
+                        </span>Home
+                    </a>
+                </li>
+                <li class="">
+                    <a class="valign mynav" href="#demo">
+                        <span class="center">
+                            <i class="center"><img src="images/navigation/demo.png" alt="demo"></i>
+                        </span>Demo
+                    </a>
+                </li>
+                <li class="">
+                    <a class="valign mynav" href="#pricing">
+                        <span class="center">
+                            <i class="center"><img src="images/navigation/pricing.png" alt="pricing" style="width:28px"></i>
+                        </span>Pricing
+                    </a>
+                </li>
+                <li class="">
+                    <a class="valign mynav" href="#books">
+                        <span class="center">
+                            <i class="center"><img src="images/navigation/books.png" alt="books" style="width:28px"></i>
+                        </span>Books
+                    </a>
+                </li>
+                <li class="">
+                    <a class="valign mynav" href="#blog">
+                        <span class="center">
+                            <i class="center"><img src="images/navigation/blog.png" alt="blog"></i>
+                        </span>Blog
+                    </a>
+                </li>
+                <li class="">
+                    <a class="valign mynav" href="#contact">
+                        <span class="center">
+                            <i class="center"><img src="images/navigation/contact.png" alt="contact"></i>
+                        </span>Contact
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ==================== PAGE CONTENT ==================== -->
+    <main>
+        <section class="welcome-page">
+
+            <!-- Hero / Header Banner -->
+            <div class="header-banner">
+                <div class="row">
+                    <div class="col-md-6 col-12 valign">
+                        <div class="header-banner-text">
+                            <div class="text dark pt-4 pb-2">
+                                <span>Reading?</span>
+                                <span>We make it <br>easy-peasy!</span>
+                            </div>
+                            <div class="app-download mt-4 w-100">
+                                <a href="https://apps.apple.com/in/app/reading-pup/id1587462607" class="mr-3" target="_blank" rel="noopener">
+                                    <img src="images/brands/appstore.png" alt="Download on the App Store" width="100%" />
+                                </a>
+                                <a href="https://play.google.com/store/apps/details?id=com.readingpup" target="_blank" rel="noopener">
+                                    <img src="images/brands/playstore.png" alt="Get it on Google Play" width="100%" />
+                                </a>
+                            </div>
+                            <div class="my-4 py-3 try-demo">
+                                <a href="#demo">
+                                    <button class="btn btn-outline-trans big_button text-white py-2">Try Demo</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="noneinmobile col-md-6 header-banner-img">
+                        <img src="images/home/header-banner.webp" alt="Reading Pup Hero" width="100%" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Features / Video + Student Carousel -->
+            <div class="company_features text-center position-relative">
+                <img src="images/home/netbg.webp" alt="" />
+                <div class="content">
+                    <div class="companyvideo">
+                        <div class="title">See how it works</div>
+                        <div>&nbsp;</div>
+                        <div class="videobg position-relative">
+                            <img src="images/home/videobg.webp" alt="" />
+                            <!-- Replace the src below with your actual YouTube embed URL -->
+                            <iframe width="400px" height="400px" class="shadow"
+                                src="https://www.youtube.com/embed/s1PXU5SZIJg"
+                                title="Reading Pup Demo"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                referrerpolicy="strict-origin-when-cross-origin">
+                            </iframe>
+                        </div>
+                    </div>
+                    <div class="students-content" id="demo">
+                        <div class="h_center title py-3 m_nopadding">For Students</div>
+                        <div>&nbsp;</div>
+                        <div class="container-fluid">
+                            <div class="owl-slider">
+                                <div id="carousel" class="owl-carousel">
+                                    <div class="item">
+                                        <img src="images/home/inframe/playthrough.png" alt="Playthrough" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="images/home/inframe/parent-report-card.png" alt="Parent Report Card" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="images/home/inframe/transliteration.png" alt="Transliteration" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="images/home/inframe/playthrough.png" alt="Playthrough" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="images/home/inframe/parent-report-card.png" alt="Parent Report Card" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="images/home/inframe/transliteration.png" alt="Transliteration" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="images/home/inframe/playthrough.png" alt="Playthrough" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="images/home/inframe/parent-report-card.png" alt="Parent Report Card" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="images/home/inframe/transliteration.png" alt="Transliteration" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teacher's Panel Section -->
+            <div class="teacher-content position-relative">
+                <img src="images/home/primarybg.webp" alt="" class="noneinmobile" />
+                <img src="images/home/primarybgm.webp" alt="" class="noneindesktop" />
+                <div class="content">
+                    <div class="h_center row title py-3 text-white">Teacher's Panel</div>
+                    <div class="row h_center pb-3">
+                        <div class="position-relative col-md-3 order-2 order-md-1 row">
+                            <div class="comp-top1 right col-6 col-md-12">
+                                <img src="images/home/inframe/stories-read.png" alt="Stories Read" width="250px" />
+                            </div>
+                            <div class="comp-bottom1 right col-6 col-md-12">
+                                <img src="images/home/inframe/monthly-weekly-report.png" alt="Monthly Weekly Report" width="250px" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 order-1 order-md-2">
+                            <div class="m-2 center">
+                                <img src="images/home/inframe/teacher-panel.png" alt="Teacher Panel" width="80%" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 position-relative order-3 order-md-3 row">
+                            <div class="comp-top2 col-6 col-md-12">
+                                <img src="images/home/inframe/accuracy-rate.png" alt="Accuracy Rate" width="250px" />
+                            </div>
+                            <div class="comp-bottom2 col-6 col-md-12">
+                                <img src="images/home/inframe/story-stats.png" alt="Story Stats" width="250px" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enquire Now -->
+                    <div class="home-enquire position-relative" id="contact">
+                        <img src="images/home/enquirebg.webp" alt="Enquire Now" width="100%" class="noneinmobile" />
+                        <img src="images/home/enquirebgm.webp" alt="Enquire Now" width="100%" class="noneindesktop" />
+                        <div class="h_center row title py-3">What are you waiting for?</div>
+                        <div class="center">
+                            <a href="mailto:support@readingpup.com">
+                                <button class="btn orange_bg big_button py-2">Enquire Now</button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Footer Widget -->
+                    <div class="position-relative orange_bg" style="margin-top:-5px;">
+                        <div class="homewidget container-fluid">
+                            <div class="row">
+                                <div class="col-md-3 col-12 py-2">
+                                    <div>
+                                        <h4>About</h4>
+                                        <div>
+                                            <a href="#" target="_blank">Get our brand book</a> <br>
+                                            <a href="#demo">Experience Reading Pup</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12 py-2">
+                                    <div>
+                                        <h4>Apps</h4>
+                                        <a href="https://apps.apple.com/in/app/reading-pup/id1587462607" target="_blank" rel="noopener">Download our iOS app</a> <br>
+                                        <a href="https://play.google.com/store/apps/details?id=com.readingpup" target="_blank" rel="noopener">Download our Android app</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12 py-2">
+                                    <div>
+                                        <h4>Contact</h4>
+                                        <div>
+                                            <a href="mailto:support@readingpup.com">Write to us</a> <br>
+                                            <a href="#contact">Nominate a school</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12 py-2">
+                                    <div>
+                                        <h4>Social</h4>
+                                        <p class="social_links d-flex">
+                                            <a href="https://in.linkedin.com/company/readingpup" class="bi bi-linkedin" target="_blank" rel="noopener" aria-label="LinkedIn"></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container py-4 h_center">
+                                <div class="row home_logotype">
+                                    <div class="w-100 h_center">
+                                        <div class="pb-4 mt-4 m_nomargin">
+                                            <img src="images/logo/logotype_icon.png" width="150px" alt="Reading Pup Logo" class="mb-3">
+                                            <h1 class="">Reading Pup</h1>
+                                            <h5 class="orange_fade">The Effective English Reader for your K-5 Child</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>&nbsp;</div>
+
+                        <footer class="container-fluid">
+                            <div class="">
+                                <hr style="border-color: var(--primary-fade)">
+                                <div class="row font14">
+                                    <div class="col-5">&copy; 2025 Reading Pup</div>
+                                    <div class="col-7">
+                                        <div class="right">
+                                            <a href="mailto:support@readingpup.com">Contact</a> |
+                                            <a href="#">Terms</a> |
+                                            <a href="#">Privacy</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+</div>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" defer></script>
+<script src="js/bootstrap.min.js" defer></script>
+<script src="js/owl.carousel.js"></script>
+
+<script type="text/javascript">
+    // Owl Carousel init
+    jQuery(document).ready(function($) {
+        $("#carousel").owlCarousel({
+            autoplay: true,
+            rewind: false,
+            loop: true,
+            margin: 20,
+            responsiveClass: true,
+            autoHeight: true,
+            autoplayTimeout: 7000,
+            smartSpeed: 800,
+            nav: false,
+            dots: true,
+            responsive: {
+                0:    { items: 1 },
+                600:  { items: 3 },
+                1024: { items: 4 },
+                1366: { items: 4 }
+            }
+        });
+
+        // Mobile hamburger menu toggle
+        $("#hamburger-btn").on("click", function() {
+            $("#hamburger-bar").toggleClass("animate");
+            $("#mobile-nav").toggleClass("show");
+        });
+
+        // Close mobile nav when a link is clicked
+        $("#mobile-nav a").on("click", function() {
+            $("#hamburger-bar").removeClass("animate");
+            $("#mobile-nav").removeClass("show");
+        });
+    });
+</script>
+</body>
+</html>
