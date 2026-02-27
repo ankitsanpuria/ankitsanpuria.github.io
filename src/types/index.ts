@@ -18,6 +18,12 @@ export interface Experience {
   period: string
   description: string
   achievements: string[]
+  /** Metric badges for recruiter scanning (e.g. "40%+ DB latency", "100+ orgs") */
+  metrics?: string[]
+  /** Architecture/tech tags shown in expanded view */
+  architectureTags?: string[]
+  /** Seniority tier for timeline accent: 'senior' | 'mid' | 'junior' */
+  seniority?: 'senior' | 'mid' | 'junior'
 }
 
 export interface SkillGroup {

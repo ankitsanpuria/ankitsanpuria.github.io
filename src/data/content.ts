@@ -70,6 +70,9 @@ export const experience: Experience[] = [
     company: 'DAXKO',
     role: 'Senior Engineer',
     period: 'April 2024 – Present',
+    seniority: 'senior',
+    metrics: ['100+ orgs', '40%+ DB latency ↓', '60% bug backlog ↓', '250+ commits'],
+    architectureTags: ['React Native', 'Expo', 'Multi-tenant', 'Zustand', 'K8s'],
     description: 'End-to-end engineering and architecture for a white-label, multi-tenant mobile + backend platform serving 100+ organizations.',
     achievements: [
       'Led mobile platform delivery (React Native + Expo + TypeScript) with dev builds, Expo Router, and React Query patterns',
@@ -86,6 +89,9 @@ export const experience: Experience[] = [
     company: 'Kalyani Navyug Media Pvt. Ltd.',
     role: 'Senior Software Developer',
     period: 'July 2021 – March 2024',
+    seniority: 'senior',
+    metrics: ['100k+ MAU', '60% ops effort ↓', '70% fewer failures', '65% buffering ↓'],
+    architectureTags: ['React Native', 'Laravel', 'IndexedDB', 'S3/CloudFront', 'PWA'],
     description: 'End-to-end full-stack delivery across 4+ concurrent web and mobile products—multi-tenant platforms, high-traffic workflows, 100k+ monthly active users.',
     achievements: [
       '~60% reduction in manual operational effort via dynamic admin platforms and automated communications',
@@ -102,6 +108,9 @@ export const experience: Experience[] = [
     company: 'Pinnacleworks Infotech Pvt. Ltd.',
     role: 'Software Developer',
     period: 'Jan 2019 – June 2021',
+    seniority: 'mid',
+    metrics: ['ERP scale', 'RBAC systems', 'Payments & integrations'],
+    architectureTags: ['Laravel', 'MySQL', 'Role-based access', 'Workflow automation'],
     description: 'End-to-end full-stack delivery of large-scale education ERP and CRM systems—architecture, development, and production readiness.',
     achievements: [
       'Designed secure, role-based access systems for academic, administrative, and operational departments',
