@@ -1,65 +1,77 @@
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { lazy, Suspense, useState, useEffect } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import { Header } from './components/layout/Header'
-import { Hero } from './components/sections/Hero'
-import { About } from './components/sections/About'
-import { Skills } from './components/sections/Skills'
-import { Projects } from './components/sections/Projects'
-import { Experience } from './components/sections/Experience'
-import { Architecture } from './components/sections/Architecture'
-import { Contact } from './components/sections/Contact'
 import { Footer } from './components/sections/Footer'
 import { SEO } from './components/SEO'
 import { ThemeProvider } from './context/ThemeContext'
-import { useReducedMotion } from './hooks/useReducedMotion'
-import { spring } from './lib/animation'
 import { ResumePage } from './pages/ResumePage'
 
-function getView(): 'portfolio' | 'resume' {
-  if (typeof window === 'undefined') return 'portfolio'
-  const params = new URLSearchParams(window.location.search)
-  return params.get('view') === 'resume' ? 'resume' : 'portfolio'
+// Lazy-load the Explore (portfolio) page — keeps initial bundle lean
+const ExplorePage = lazy(() =>
+  import('./pages/ExplorePage').then((m) => ({ default: m.ExplorePage })),
+)
+
+/* ─── Routing helpers ───────────────────────────────────────────────── */
+export type Route = 'resume' | 'explore'
+
+function getRoute(): Route {
+  if (typeof window === 'undefined') return 'resume'
+  return window.location.pathname === '/explore' ? 'explore' : 'resume'
 }
 
-export default function App() {
-  const reduced = useReducedMotion()
-  const [view, setView] = useState<'portfolio' | 'resume'>(getView)
+function pushRoute(target: Route) {
+  const url = target === 'explore' ? '/explore' : '/'
+  window.history.pushState({}, '', url)
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 
+/* ─── Loading fallback ──────────────────────────────────────────────── */
+function PageLoader() {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="flex items-center gap-3 text-secondary-500">
+        <span
+          className="w-4 h-4 rounded-full border-2 border-primary-500 border-t-transparent animate-spin"
+          aria-hidden
+        />
+        <span className="text-sm font-medium">Loading…</span>
+      </div>
+    </div>
+  )
+}
+
+/* ─── App ───────────────────────────────────────────────────────────── */
+export default function App() {
+  const [route, setRoute] = useState<Route>(getRoute)
+
+  // Sync state with browser back/forward navigation
   useEffect(() => {
-    const onPop = () => setView(getView())
+    const onPop = () => setRoute(getRoute())
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
   }, [])
 
-  const navigateTo = (target: 'portfolio' | 'resume') => {
-    const url = target === 'resume' ? '?view=resume' : '/'
-    window.history.pushState({}, '', url)
-    setView(target)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+  const goTo = (target: Route) => {
+    pushRoute(target)
+    setRoute(target)
   }
 
   return (
     <ThemeProvider>
       <SEO />
-      <Header view={view} onNavigate={navigateTo} />
-      {view === 'resume' ? (
-        <ResumePage />
-      ) : (
-        <motion.main
-          initial={reduced ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring.smooth, delay: 0.2 }}
-        >
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Experience />
-          <Architecture />
-          <Contact />
-        </motion.main>
-      )}
-      <Footer />
+      <Header route={route} onNavigate={goTo} />
+
+      <AnimatePresence mode="wait">
+        {route === 'resume' ? (
+          <ResumePage key="resume" onExplore={() => goTo('explore')} />
+        ) : (
+          <Suspense key="explore" fallback={<PageLoader />}>
+            <ExplorePage onBack={() => goTo('resume')} />
+          </Suspense>
+        )}
+      </AnimatePresence>
+
+      <Footer route={route} onExplore={() => goTo('explore')} />
     </ThemeProvider>
   )
 }

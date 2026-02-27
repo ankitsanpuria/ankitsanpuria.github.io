@@ -14,6 +14,8 @@ import { SkillGrid } from '../components/resume/SkillGrid'
 import { ExperienceCard } from '../components/resume/ExperienceCard'
 import { ProjectCard } from '../components/resume/ProjectCard'
 import { ArchCard } from '../components/resume/ArchCard'
+import { ResumeNav } from '../components/resume/ResumeNav'
+import { FloatingContact } from '../components/resume/FloatingContact'
 import { ScrollReveal } from '../components/ui/ScrollReveal'
 
 /* ─── Section wrapper ─────────────────────────────────────────────────── */
@@ -24,14 +26,14 @@ function ResumeSection({
   children,
   className = '',
 }: {
-  id?: string
+  id: string
   title: string
   subtitle?: string
   children: React.ReactNode
   className?: string
 }) {
   return (
-    <section id={id} className={`py-10 print:py-4 ${className}`}>
+    <section id={id} className={`py-10 scroll-mt-28 print:py-4 ${className}`}>
       <ScrollReveal>
         <div className="flex items-baseline gap-3 mb-1">
           <h2 className="text-xl font-bold text-secondary-900 tracking-tight">{title}</h2>
@@ -190,15 +192,27 @@ const iconMap: Record<string, ReactElement> = {
   email: <EmailIcon />,
 }
 
+/* ─── Props ─────────────────────────────────────────────────────────── */
+interface ResumePageProps {
+  onExplore?: () => void
+}
+
 /* ─── Main component ───────────────────────────────────────────────── */
-export function ResumePage() {
+export function ResumePage({ onExplore }: ResumePageProps) {
   const reduced = useReducedMotion()
 
   const handlePrint = () => window.print()
 
   return (
-    <div className="min-h-screen bg-surface relative">
-      {/* Animated background gradient - hidden on print */}
+    <motion.div
+      key="resume-page"
+      className="min-h-screen bg-surface relative"
+      initial={reduced ? false : { opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={reduced ? undefined : { opacity: 0, y: -10 }}
+      transition={{ ...spring.smooth, duration: 0.4 }}
+    >
+      {/* Animated background gradient */}
       <motion.div
         className="fixed inset-0 pointer-events-none z-0 print:hidden"
         animate={
@@ -216,19 +230,21 @@ export function ResumePage() {
         style={{ opacity: 0.3 }}
       />
 
+      {/* Sticky in-page section nav */}
+      <ResumeNav />
+
       <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-8 py-6 print:px-0 print:py-0 print:max-w-none">
 
         {/* ── HERO ──────────────────────────────────────────────────── */}
         <motion.header
+          id="resume-hero"
           initial={reduced ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring.smooth, delay: 0.1 }}
-          className="pt-4 pb-8 border-b border-secondary-200 print:pb-4 print:border-secondary-300"
+          className="pt-4 pb-8 border-b border-secondary-200 scroll-mt-28 print:pb-4 print:border-secondary-300"
         >
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
-            {/* Name + title */}
             <div className="flex-1 min-w-0">
-              {/* Available badge */}
               <motion.div
                 initial={reduced ? false : { opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -242,14 +258,13 @@ export function ResumePage() {
               <h1 className="text-4xl md:text-5xl font-black tracking-tight text-secondary-900 leading-none print:text-3xl">
                 {siteConfig.name}
               </h1>
-              <div className="mt-2 text-lg md:text-xl font-semibold bg-gradient-to-r from-primary-600 to-tertiary-600 bg-clip-text text-transparent leading-tight print:text-base print:text-secondary-700">
+              <div className="mt-2 text-lg md:text-xl font-semibold bg-linear-to-r from-primary-600 to-tertiary-600 bg-clip-text text-transparent leading-tight print:text-base print:text-secondary-700">
                 {siteConfig.title}
               </div>
               <p className="mt-3 text-sm text-secondary-600 max-w-xl leading-relaxed print:text-xs">
                 {siteConfig.tagline}
               </p>
 
-              {/* Contact links */}
               <div className="mt-4 flex flex-wrap items-center gap-3 print:gap-4">
                 {contactLinks.map(link => (
                   <a
@@ -268,7 +283,6 @@ export function ResumePage() {
               </div>
             </div>
 
-            {/* Download button */}
             <div className="flex flex-col gap-2 flex-shrink-0 print:hidden">
               <motion.button
                 onClick={handlePrint}
@@ -287,12 +301,25 @@ export function ResumePage() {
                 <DownloadIcon />
                 Direct download
               </a>
+              {onExplore && (
+                <button
+                  onClick={onExplore}
+                  className="inline-flex items-center justify-center gap-1.5 px-5 py-2 rounded-xl border border-dashed border-secondary-300 text-secondary-500 text-xs font-medium hover:border-primary-400 hover:text-primary-600 transition-all duration-200 cursor-pointer"
+                >
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="7" cy="7" r="4" />
+                    <path d="M12 12l2 2" />
+                    <path d="M5 7h4M7 5v4" />
+                  </svg>
+                  Explore portfolio
+                </button>
+              )}
             </div>
           </div>
         </motion.header>
 
         {/* ── IMPACT METRICS ────────────────────────────────────────── */}
-        <ResumeSection id="stats" title="Impact at a Glance" subtitle="Measurable outcomes across 8+ years of production engineering.">
+        <ResumeSection id="resume-stats" title="Impact at a Glance" subtitle="Measurable outcomes across 8+ years of production engineering.">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             {stats.map((s, i) => (
               <StatCard key={s.label} {...s} index={i} />
@@ -301,26 +328,21 @@ export function ResumePage() {
         </ResumeSection>
 
         {/* ── SKILLS ────────────────────────────────────────────────── */}
-        <ResumeSection id="skills" title="Technical Skills" subtitle="Full-stack capabilities across frontend, backend, cloud, and AI tooling.">
+        <ResumeSection id="resume-skills" title="Technical Skills" subtitle="Full-stack capabilities across frontend, backend, cloud, and AI tooling.">
           <SkillGrid />
         </ResumeSection>
 
         {/* ── EXPERIENCE ────────────────────────────────────────────── */}
-        <ResumeSection id="experience" title="Experience" subtitle="Click any role to expand achievements and architecture details.">
+        <ResumeSection id="resume-experience" title="Experience" subtitle="Click any role to expand achievements and architecture details.">
           <div className="space-y-0">
             {experience.map((exp, i) => (
-              <ExperienceCard
-                key={exp.id}
-                exp={exp}
-                index={i}
-                isLast={i === experience.length - 1}
-              />
+              <ExperienceCard key={exp.id} exp={exp} index={i} isLast={i === experience.length - 1} />
             ))}
           </div>
         </ResumeSection>
 
         {/* ── PROJECTS ────────────────────────────────────────────── */}
-        <ResumeSection id="projects" title="Project Highlights" subtitle="Production systems designed, built, and scaled from scratch.">
+        <ResumeSection id="resume-projects" title="Project Highlights" subtitle="Production systems designed, built, and scaled from scratch.">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {projects.map((p, i) => (
               <ProjectCard key={p.id} project={p} index={i} />
@@ -329,7 +351,7 @@ export function ResumePage() {
         </ResumeSection>
 
         {/* ── ARCHITECTURE ──────────────────────────────────────────── */}
-        <ResumeSection id="architecture" title="Architecture Expertise" subtitle="Patterns and systems I've designed and owned in production.">
+        <ResumeSection id="resume-architecture" title="Architecture Expertise" subtitle="Patterns and systems I've designed and owned in production.">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {architectureHighlights.map((a, i) => (
               <ArchCard key={a.title} title={a.title} description={a.description} index={i} />
@@ -338,12 +360,12 @@ export function ResumePage() {
         </ResumeSection>
 
         {/* ── LEADERSHIP ───────────────────────────────────────────── */}
-        <ResumeSection id="leadership" title="Leadership & Engineering Practices" subtitle="How I operate as a senior engineer and technical lead.">
+        <ResumeSection id="resume-leadership" title="Leadership & Engineering Practices" subtitle="How I operate as a senior engineer and technical lead.">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {leadershipItems.map((item, i) => (
               <ScrollReveal key={item.title} index={i} delay={0.05}>
                 <div className="group relative overflow-hidden rounded-xl border border-secondary-200 bg-surface-raised p-4 shadow-sm hover:border-primary-300 hover:shadow-md transition-all duration-300 h-full print:break-inside-avoid">
-                  <span className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary-500 to-tertiary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  <span className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-primary-500 to-tertiary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-8 h-8 rounded-lg bg-primary-50 border border-primary-100 flex items-center justify-center text-primary-600 flex-shrink-0">
                       {item.icon}
@@ -365,12 +387,12 @@ export function ResumePage() {
         </ResumeSection>
 
         {/* ── EDUCATION & CERTIFICATIONS ────────────────────────────── */}
-        <ResumeSection id="education" title="Education & Certifications" subtitle="Academic background and applied technical expertise.">
+        <ResumeSection id="resume-education" title="Education & Certifications" subtitle="Academic background and applied technical expertise.">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {education.map((edu, i) => (
               <ScrollReveal key={edu.degree} index={i}>
                 <div className="group relative overflow-hidden rounded-xl border border-secondary-200 bg-surface-raised p-4 shadow-sm hover:border-primary-300 transition-all duration-300 print:break-inside-avoid">
-                  <span className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary-500 to-tertiary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  <span className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-primary-500 to-tertiary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                   <div className="text-2xl mb-2">{edu.icon}</div>
                   <div className="text-sm font-bold text-secondary-900">{edu.degree}</div>
                   <div className="text-xs font-medium text-primary-600 mt-0.5">{edu.institution}</div>
@@ -381,7 +403,7 @@ export function ResumePage() {
             {certifications.map((cert, i) => (
               <ScrollReveal key={cert.name} index={i + education.length}>
                 <div className="group relative overflow-hidden rounded-xl border border-secondary-200 bg-surface-raised p-4 shadow-sm hover:border-primary-300 transition-all duration-300 print:break-inside-avoid">
-                  <span className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary-500 to-tertiary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  <span className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-primary-500 to-tertiary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                   <div className="text-2xl mb-2">{cert.icon}</div>
                   <div className="text-sm font-bold text-secondary-900">{cert.name}</div>
                   <div className="text-xs font-medium text-secondary-600 mt-0.5">{cert.issuer}</div>
@@ -393,27 +415,22 @@ export function ResumePage() {
         </ResumeSection>
 
         {/* ── CONTACT CTA ────────────────────────────────────────────── */}
-        <section className="py-10 print:hidden">
+        <section id="resume-contact" className="py-10 scroll-mt-28 print:hidden">
           <ScrollReveal>
             <motion.div
               whileHover={reduced ? undefined : { scale: 1.005 }}
               className="relative overflow-hidden rounded-2xl border border-secondary-200 bg-surface-raised p-8 shadow-sm text-center"
             >
-              {/* Gradient bg */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-tertiary-500/5 pointer-events-none" />
-
+              <div className="absolute inset-0 bg-linear-to-br from-primary-500/5 via-transparent to-tertiary-500/5 pointer-events-none" />
               <div className="relative">
-                {/* Available dot */}
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold mb-4">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   Available for new opportunities
                 </div>
-
                 <h2 className="text-2xl font-black text-secondary-900 tracking-tight">Let's build something great</h2>
                 <p className="mt-2 text-sm text-secondary-600 max-w-md mx-auto leading-relaxed">
                   Senior Full Stack Engineer with 8+ years of experience. Open to senior IC, tech lead, and staff engineer roles.
                 </p>
-
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                   {contactLinks.map(link => (
                     <motion.a
@@ -429,7 +446,6 @@ export function ResumePage() {
                       {link.name}
                     </motion.a>
                   ))}
-
                   <motion.button
                     onClick={handlePrint}
                     whileHover={reduced ? undefined : { scale: 1.03 }}
@@ -446,6 +462,9 @@ export function ResumePage() {
         </section>
 
       </div>
-    </div>
+
+      {/* Floating contact FAB */}
+      <FloatingContact />
+    </motion.div>
   )
 }
