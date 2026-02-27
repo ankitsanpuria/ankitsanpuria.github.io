@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ankit Sanpuria</title>
+    <script>
+      // GitHub Pages SPA redirect — preserves the requested path so the
+      // client-side router can handle it after index.html loads.
+      (function () {
+        var l = window.location
+        var path = l.pathname
+        // Only redirect non-root paths (e.g. /explore)
+        if (path !== '/' && path !== '/index.html') {
+          // Encode the path as a query param so GitHub Pages serves index.html
+          // and the app can restore the correct route.
+          var redirectUrl =
+            l.protocol + '//' + l.host + l.pathname.split('/').slice(0, 1).join('/') +
+            '/?p=' + encodeURIComponent(path) +
+            (l.search ? '&' + l.search.slice(1) : '') +
+            l.hash
+          l.replace(redirectUrl)
+        }
+      })()
+    </script>
+  </head>
+  <body></body>
+</html>
