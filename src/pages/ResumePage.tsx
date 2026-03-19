@@ -119,25 +119,19 @@ const leadershipItems = [
 const education = [
   {
     icon: '🎓',
-    degree: 'B.E. Information Technology',
-    institution: 'University of Pune',
-    year: '2018',
-    note: 'Computer Science & Engineering',
+    degree: 'B.com.',
+    institution: '',
+    year: '2017',
+    note: 'Commerce',
   },
 ]
 
 const certifications = [
   {
-    icon: '🤖',
-    name: 'AI-Assisted Engineering',
-    issuer: 'GitHub Copilot · Cursor IDE · Prompt Engineering',
-    note: 'Applied LLM workflows in production development',
-  },
-  {
-    icon: '☁️',
-    name: 'Cloud Architecture',
-    issuer: 'AWS (Lambda, ECS, S3, RDS) · Kubernetes · Serverless',
-    note: 'Production deployments & infrastructure automation',
+    icon: '💻',
+    name: 'OCJP',
+    issuer: 'Oracle Certified Java Programmer',
+    note: 'Java Programming',
   },
 ]
 
